@@ -7,19 +7,21 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import SendIcon from '@mui/icons-material/Send';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
+import { updateEmployee } from '../services/useFetch';
 import { teal } from '@mui/material/colors';
-import { saveEmployee } from '../services/useFetch';
-import { Grid } from '@mui/material';
 
-export default function Forms() {
+export default function FormsEdit(data) {
   const [open, setOpen] = React.useState(false);
+
+  const aja = data;
+  console.log(aja);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -29,15 +31,17 @@ export default function Forms() {
     setOpen(false);
   };
 
+
   const initialValue = {
-    firstname: '',
-    lastname: '',
-    address: '',
-    phone: '',
-    email: '',
-    position: '',
-    city: '',
-    area: '',
+    id: data.id,
+    firstname: data.firstname,
+    lastname: data.lastname,
+    address: data.address,
+    phone: data.phone,
+    email: data.email,
+    position: data.position,
+    city: data.city,
+    area: data.area,
   };
 
   const [employee, setEmployee] = React.useState(initialValue);
@@ -63,32 +67,36 @@ export default function Forms() {
       area: employee.area,
     };
 
-    saveEmployee("http://localhost:8080/api/employees", newEmployee);
+    updateEmployee("http://localhost:8080/api/employees", newEmployee);
 
     setEmployee(initialValue);
 
   };
 
+  React.useEffect(() => {
+    
+  }, [employee]);
 
   return (
     <div>
-      <Fab sx={{ backgroundColor: teal[500], color: teal[800] }} aria-label="add" onClick={handleClickOpen}>
-        <AddIcon />
-      </Fab>
+      <IconButton onClick={handleClickOpen}>
+        <EditIcon sx={{ color: teal[500] }}/>
+      </IconButton>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>New employee</DialogTitle>
+        <DialogTitle>Update employee</DialogTitle>
         <DialogContent>
           <Box component="form" onSubmit={saveData}>
             <TextField
               autoFocus
+              required
               margin="dense"
               id="firstname"
               label="firstname"
+              defaultValue={employee == null ? "descargado" : employee.city + "aaa"}
               type="text"
               fullWidth
               variant="standard"
-              name="firstname"
-              value={employee.firstname}
+              
               onChange={captureData}
             />
             <TextField
@@ -185,18 +193,13 @@ export default function Forms() {
                 <MenuItem value={'accountancy'}>Accountancy</MenuItem>
               </Select>
             </FormControl>
-            <Grid container
-                  direction="row"
-                  justifyContent="flex-end"
-                  alignItems="center">
-              <Button variant="contained" 
+            <Button variant="contained" 
                       color="success" 
                       type='submit' 
                       onClick={handleClose} 
                       endIcon={<SendIcon />}
                       sx={{ backgroundColor: teal[700], marginTop: 2 }}
-              >Success</Button>
-            </Grid>
+              >Update</Button>
           </Box>
         </DialogContent>
       </Dialog>

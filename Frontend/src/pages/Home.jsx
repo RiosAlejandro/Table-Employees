@@ -33,15 +33,70 @@ export default function Home() {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Last Name</TableCell>
-            <TableCell align="right">Address</TableCell>
-            <TableCell align="right">Phone</TableCell>
-            <TableCell align="right">Email</TableCell>
-            <TableCell align="right">Position</TableCell>
-            <TableCell align="right">City</TableCell>
-            <TableCell align="right">Area</TableCell>
-            <TableCell align="right"> </TableCell>
+            <TableCell 
+              align="left" 
+              sx={{
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.2rem',
+                }}
+            >
+              Name
+            </TableCell>
+            <TableCell 
+              align="left"
+              sx={{
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.2rem',
+              }}
+            >Last Name
+            </TableCell>
+            <TableCell 
+              align="left"
+              sx={{
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.2rem',
+              }}
+            >Address
+            </TableCell>
+            <TableCell align="left"
+                       sx={{
+                          fontFamily: 'monospace',
+                          fontWeight: 700,
+                          letterSpacing: '.2rem',
+                        }}>Phone</TableCell>
+            <TableCell align="left"
+                       sx={{
+                          fontFamily: 'monospace',
+                          fontWeight: 700,
+                          letterSpacing: '.2rem',
+                        }}>Email</TableCell>
+            <TableCell align="left"
+                       sx={{
+                          fontFamily: 'monospace',
+                          fontWeight: 700,
+                          letterSpacing: '.2rem',
+                        }}>Position</TableCell>
+            <TableCell align="left"
+                       sx={{
+                          fontFamily: 'monospace',
+                          fontWeight: 700,
+                          letterSpacing: '.2rem',
+                        }}>City</TableCell>
+            <TableCell align="left"
+                       sx={{
+                          fontFamily: 'monospace',
+                          fontWeight: 700,
+                          letterSpacing: '.2rem',
+                        }}>Area</TableCell>
+            <TableCell align="left"
+                       sx={{
+                          fontFamily: 'monospace',
+                          fontWeight: 700,
+                          letterSpacing: '.2rem',
+                        }}> </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -53,14 +108,14 @@ export default function Home() {
               <TableCell component="th" scope="row">
                 {row.firstname}
               </TableCell>
-              <TableCell align="right">{row.lastname}</TableCell>
-              <TableCell align="right">{row.address}</TableCell>
-              <TableCell align="right">{row.phone}</TableCell>
-              <TableCell align="right">{row.email}</TableCell>
-              <TableCell align="right">{row.position}</TableCell>
-              <TableCell align="right">{row.city}</TableCell>
-              <TableCell align="right">{row.area}</TableCell>
-              <TableCell align="right"> <Options id={row.id}/> </TableCell>
+              <TableCell align="center">{row.lastname}</TableCell>
+              <TableCell align="center">{row.address}</TableCell>
+              <TableCell align="center">{row.phone}</TableCell>
+              <TableCell align="center">{row.email}</TableCell>
+              <TableCell align="center">{row.position}</TableCell>
+              <TableCell align="center">{row.city}</TableCell>
+              <TableCell align="center">{row.area}</TableCell>
+              <TableCell> <Options row={row} id={row.id}/> </TableCell>
             </TableRow>
           ))}
         </TableBody>

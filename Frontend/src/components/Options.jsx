@@ -1,79 +1,31 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import * as React from 'react';
+import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { red } from '@mui/material/colors';
 import { removeEmployee } from '../services/useFetch';
+import FormsEdit from './FormsEdit';
 
-const options = [
-  'Update',
-  'Delete',
-];
-
-const ITEM_HEIGHT = 48;
-
-export default function Options(id) {
+export default function Options({row, id}) {
 
   const remove = async (id) => {
-    const extractObjectId = Object.values(id);
-    const extractArrayId = extractObjectId[0];
-    const url = "http://localhost:8080/api/employees/" + extractArrayId;
+    const url = "http://localhost:8080/api/employees/" + id;
     await removeEmployee(url);
   }
 
-  const select = (option, id) => {
-    console.log(option);
-
-    option == "Delete" ?
-    remove(id):
-    console.log("para editar viste!!");
-
-    return handleClose();
-  }
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   return (
-    <div>
-      <IconButton
-        aria-label="more"
-        id="long-button"
-        aria-controls={open ? 'long-menu' : undefined}
-        aria-expanded={open ? 'true' : undefined}
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        <MoreVertIcon />
-      </IconButton>
-      <Menu
-        id="long-menu"
-        MenuListProps={{
-          'aria-labelledby': 'long-button',
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          style: {
-            maxHeight: ITEM_HEIGHT * 4.5,
-            width: '20ch',
-          },
-        }}
-      >
-        {options.map((option) => (
-          <MenuItem key={option} selected={option === 'Pyxis'} onClick={() => select(option, id)}>
-            {option}
-          </MenuItem>
-        ))}
-      </Menu>
-    </div>
+    <Grid container spacing={0.5} direction="row" justifyContent="center" alignItems="center">
+      <Grid item xs={6}>
+            <FormsEdit data={row}/>
+      </Grid>  
+      <Grid item xs={6}>
+          <IconButton onClick={() => remove(id)}>
+            <DeleteIcon sx={{ color: red[500] }}/>
+          </IconButton>
+      </Grid>
+    </Grid>
   );
 }

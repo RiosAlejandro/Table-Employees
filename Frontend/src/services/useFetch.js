@@ -39,3 +39,13 @@ export async function removeEmployee(url) {
     }
   })
 }
+
+export async function updateEmployee(url, employee) {
+  await fetch(url, {
+    "method": 'PUT',
+    "body": JSON.stringify(employee),
+    "headers":{
+      "Content-Type": 'application/json'
+    }
+  })
+}
